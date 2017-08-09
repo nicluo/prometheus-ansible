@@ -1,0 +1,7 @@
+---
+# Ansible playbook for a Prometheus setup.
+#
+# @author Nicholas Luo (2017).
+
+- hosts: prometheus
+  gather_facts: yes
