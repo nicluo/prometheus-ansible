@@ -1,0 +1,35 @@
+ALERT InstanceDown
+  IF up == 0
+  FOR 5m
+  LABELS { severity = "page" }
+  ANNOTATIONS {
+    summary = "Instance {{ $labels.instance }} down",
+    description = "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.",
+  }
+
+ALERT InstanceHighCpu
+  IF 100 - (avg by (host) (irate(node_cpu{mode="idle"}[5m])) * 100) > 5
+  FOR 10m
+  LABELS { severity = "page" }
+  ANNOTATIONS {
+    summary = "Instance {{$labels.host}}: cpu high",
+    description = "{{$labels.host}} has high cpu activity"
+  }
+
+ALERT InstanceLowMemory
+  IF node_memory_MemAvailable < 268435456
+  FOR 10m
+  LABELS { severity = "page" }
+  ANNOTATIONS {
+    summary = "Instance {{$labels.host}}: memory low",
+    description = "{{$labels.host}} has less than 256M memory available"
+  }
+
+ALERT InstanceLowDisk
+  IF node_filesystem_avail{mountpoint="/etc/hosts"} < 10737418240
+  FOR 10m
+  LABELS { severity = "page" }
+  ANNOTATIONS {
+    summary = "Instance {{$labels.host}}: low disk space",
+    description = "{{$labels.host}} has less than 10G FS space"
+  }

@@ -5,3 +5,6 @@
 
 - hosts: web
   gather_facts: yes
+
+  roles:
+    - node_exporter

@@ -1,1 +1,31 @@
 ---
+- name: Create Prometheus user
+  user:
+    name: "{{ prometheus_user }}"
+    shell: /bin/bash
+    append: yes
+
+- name: Ensures Node Exporter install and configuration directory exists
+  file:
+    path: "{{ prometheus_node_exporter_install_directory }}"
+    state: directory
+    owner: "{{ prometheus_user }}"
+
+- name: Download Node Exporter to install directory
+  unarchive:
+    src: "https://github.com/prometheus/node_exporter/releases/download/v{{ prometheus_node_exporter_version }}/node_exporter-{{ prometheus_node_exporter_version }}.{{ prometheus_platform }}.tar.gz"
+    dest: "{{ prometheus_node_exporter_install_directory }}"
+    copy: no
+    owner: "{{ prometheus_user }}"
+
+- name: Add systemd Node Exporter service
+  template:
+    src: node_exporter.service.j2
+    dest: /lib/systemd/system/node_exporter.service
+
+- name: Enable and start Node Exporter service
+  systemd:
+    name: node_exporter
+    state: started
+    enabled: true
+    daemon_reload: yes
