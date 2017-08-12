@@ -1,0 +1,17 @@
+ALERT SSLCertExpiringSoon
+  IF probe_ssl_earliest_cert_expiry{job="blackbox"} - time() < 86400 * 30
+  FOR 10m
+  LABELS { severity = "warning" }
+  ANNOTATIONS {
+    summary = "Site {{ $labels.instance }} SSL Certificate expiring soon",
+    description = "{{ $labels.instance }} has less than 30 days of validity for SSL Certificate."
+  }
+
+ALERT SSLCertExpiringSoon
+  IF probe_ssl_earliest_cert_expiry{job="blackbox"} - time() < 86400 * 7
+  FOR 10m
+  LABELS { severity = "page" }
+  ANNOTATIONS {
+    summary = "Site {{ $labels.instance }} SSL Certificate expiring critical",
+    description = "{{ $labels.instance }} has less than 7 days of validity for SSL Certificate."
+  }

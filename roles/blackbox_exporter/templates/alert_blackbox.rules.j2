@@ -1,0 +1,7 @@
+ALERT ProbeFailing
+  IF probe_success{job="blackbox"} < 1
+  FOR 5m
+  ANNOTATIONS {
+    summary = "Probe {{ $labels.instance }} failing",
+    description = "Probe {{ $labels.instance }} failing"
+  }

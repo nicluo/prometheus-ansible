@@ -1,0 +1,14 @@
+[Unit]
+Description=Prometheus blackbox exporter
+After=local-fs.target network-online.target network.target
+Wants=local-fs.target network-online.target network.target
+
+[Service]
+User=prometheus
+Restart=on-failure
+ExecStart={{ prometheus_blackbox_exporter_install_directory }}/blackbox_exporter-{{ prometheus_blackbox_exporter_version}}.{{ prometheus_platform }}/blackbox_exporter \
+            --config.file={{ prometheus_blackbox_exporter_config_directory }}/blackbox.yml
+Type=simple
+
+[Install]
+WantedBy=multi-user.target

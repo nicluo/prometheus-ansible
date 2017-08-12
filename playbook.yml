@@ -10,3 +10,4 @@
     - prometheus
     - alertmanager
     - node_exporter
+    - blackbox_exporter

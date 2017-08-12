@@ -1,0 +1,8 @@
+---
+prometheus_blackbox_exporter_install_directory: /opt/blackbox_exporter
+prometheus_blackbox_exporter_config_directory: /etc/blackbox_exporter
+
+prometheus_blackbox_exporter_version: 0.8.1
+prometheus_platform: linux-amd64
+
+prometheus_user : prometheus
