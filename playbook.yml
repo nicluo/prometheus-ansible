@@ -5,3 +5,8 @@
 
 - hosts: prometheus
   gather_facts: yes
+
+  roles:
+    - prometheus
+    - alertmanager
+    - node_exporter
