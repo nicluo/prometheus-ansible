@@ -1,1 +1,40 @@
 ---
+- name: Create Prometheus user
+  user:
+    name: "{{ prometheus_user }}"
+    shell: /bin/bash
+    append: yes
+
+- name: Ensures Alertmanager install and configuration directory exists
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ prometheus_user }}"
+  with_items:
+    - "{{ prometheus_alertmanager_install_directory }}"
+    - "{{ prometheus_alertmanager_config_directory }}"
+    - "{{ prometheus_alertmanager_data_directory }}"
+
+- name: Download Alertmanager to install directory
+  unarchive:
+    src: "https://github.com/prometheus/alertmanager/releases/download/v{{ prometheus_alertmanager_version }}/alertmanager-{{ prometheus_alertmanager_version }}.{{ prometheus_platform }}.tar.gz"
+    dest: "{{ prometheus_alertmanager_install_directory }}"
+    copy: no
+    owner: "{{ prometheus_user }}"
+
+- name: Configure Alertmanager
+  template:
+    src: alertmanager.yml.j2
+    dest: "{{ prometheus_alertmanager_config_directory }}/alertmanager.yml"
+
+- name: Add systemd Alertmanager service
+  template:
+    src: alertmanager.service.j2
+    dest: /lib/systemd/system/alertmanager.service
+
+- name: Enable and start Alertmanager service
+  systemd:
+    name: alertmanager
+    state: started
+    enabled: true
+    daemon_reload: yes

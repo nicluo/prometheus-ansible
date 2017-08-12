@@ -1,0 +1,9 @@
+---
+prometheus_alertmanager_install_directory: /opt/alertmanager
+prometheus_alertmanager_config_directory: /etc/alertmanager
+prometheus_alertmanager_data_directory: /var/lib/prometheus/amdata
+
+prometheus_alertmanager_version: 0.8.0
+prometheus_platform: linux-amd64
+
+prometheus_user : prometheus
