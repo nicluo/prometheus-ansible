@@ -1,0 +1,14 @@
+---
+prometheus_base_url: http://prometheus.dev
+prometheus_install_directory: /opt/prometheus
+prometheus_config_directory: /etc/prometheus
+prometheus_local_storage_directory: /var/lib/prometheus/data
+
+prometheus_version: 1.7.1
+prometheus_platform: linux-amd64
+
+prometheus_user : prometheus
+
+
+
+

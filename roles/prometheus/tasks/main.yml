@@ -1,1 +1,40 @@
 ---
+- name: Create Prometheus user
+  user:
+    name: "{{ prometheus_user }}"
+    shell: /bin/bash
+    append: yes
+
+- name: Ensures Prometheus install and configuration directory exists
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ prometheus_user }}"
+  with_items:
+    - "{{ prometheus_install_directory }}"
+    - "{{ prometheus_config_directory }}"
+    - "{{ prometheus_local_storage_directory }}"
+
+- name: Download Prometheus to install directory
+  unarchive:
+    src: "https://github.com/prometheus/prometheus/releases/download/v{{ prometheus_version }}/prometheus-{{ prometheus_version }}.{{ prometheus_platform }}.tar.gz"
+    dest: "{{ prometheus_install_directory }}"
+    copy: no
+    owner: "{{ prometheus_user }}"
+
+- name: Configure Prometheus
+  template:
+    src: prometheus.yml.j2
+    dest: "{{ prometheus_config_directory }}/prometheus.yml"
+
+- name: Add systemd Prometheus service
+  template:
+    src: prometheus.service.j2
+    dest: /lib/systemd/system/prometheus.service
+
+- name: Enable and start Prometheus service
+  systemd:
+    name: prometheus
+    state: started
+    enabled: true
+    daemon_reload: yes

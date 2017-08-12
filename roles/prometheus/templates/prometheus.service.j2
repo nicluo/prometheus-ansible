@@ -1,0 +1,17 @@
+[Unit]
+Description=Prometheus Server
+Documentation=https://prometheus.io/docs/introduction/overview/
+After=network-online.target
+
+[Service]
+User=prometheus
+Restart=on-failure
+ExecStart={{ prometheus_install_directory }}/prometheus-{{ prometheus_version}}.{{ prometheus_platform }}/prometheus \
+                   	-web.external-url={{ prometheus_base_url }}:9090 \
+                   	-alertmanager.url={{ prometheus_base_url }}:9093 \
+                   	-config.file={{ prometheus_config_directory }}/prometheus.yml \
+                   	-storage.local.path={{ prometheus_local_storage_directory }} \
+                   	-storage.local.target-heap-size=512000000 \
+
+[Install]
+WantedBy=multi-user.target
