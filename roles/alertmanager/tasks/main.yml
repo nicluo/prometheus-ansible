@@ -21,16 +21,19 @@
     dest: "{{ prometheus_alertmanager_install_directory }}"
     copy: no
     owner: "{{ prometheus_user }}"
+  notify: restart alertmanager
 
 - name: Configure Alertmanager
   template:
     src: alertmanager.yml.j2
     dest: "{{ prometheus_alertmanager_config_directory }}/alertmanager.yml"
+  notify: restart alertmanager
 
 - name: Add systemd Alertmanager service
   template:
     src: alertmanager.service.j2
     dest: /lib/systemd/system/alertmanager.service
+  notify: restart alertmanager
 
 - name: Enable and start Alertmanager service
   systemd:

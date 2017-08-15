@@ -17,11 +17,13 @@
     dest: "{{ prometheus_node_exporter_install_directory }}"
     copy: no
     owner: "{{ prometheus_user }}"
+  notify: restart node_exporter
 
 - name: Add systemd Node Exporter service
   template:
     src: node_exporter.service.j2
     dest: /lib/systemd/system/node_exporter.service
+  notify: restart node_exporter
 
 - name: Enable and start Node Exporter service
   systemd:

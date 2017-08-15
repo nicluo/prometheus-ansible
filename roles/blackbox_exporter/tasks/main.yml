@@ -20,16 +20,19 @@
     dest: "{{ prometheus_blackbox_exporter_install_directory }}"
     copy: no
     owner: "{{ prometheus_user }}"
+  notify: restart blackbox_exporter
 
 - name: Configure Blackbox Exporter
   template:
     src: blackbox.yml.j2
     dest: "{{ prometheus_blackbox_exporter_config_directory }}/blackbox.yml"
+  notify: restart blackbox_exporter
 
 - name: Add systemd Blackbox Exporter service
   template:
     src: blackbox_exporter.service.j2
     dest: /lib/systemd/system/blackbox_exporter.service
+  notify: restart blackbox_exporter
 
 - name: Enable and start Blackbox Exporter service
   systemd:

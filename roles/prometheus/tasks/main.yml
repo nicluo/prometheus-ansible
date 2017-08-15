@@ -21,16 +21,19 @@
     dest: "{{ prometheus_install_directory }}"
     copy: no
     owner: "{{ prometheus_user }}"
+  notify: restart prometheus
 
 - name: Configure Prometheus
   template:
     src: prometheus.yml.j2
     dest: "{{ prometheus_config_directory }}/prometheus.yml"
+  notify: restart prometheus
 
 - name: Add systemd Prometheus service
   template:
     src: prometheus.service.j2
     dest: /lib/systemd/system/prometheus.service
+  notify: restart prometheus
 
 - name: Enable and start Prometheus service
   systemd:
