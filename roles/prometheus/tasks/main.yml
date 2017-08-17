@@ -29,6 +29,12 @@
     dest: "{{ prometheus_config_directory }}/prometheus.yml"
   notify: restart prometheus
 
+- name: Copy prometheus alerts
+  copy:
+    src: rules/
+    dest: "{{ prometheus_config_directory }}"
+  notify: restart prometheus
+
 - name: Add systemd Prometheus service
   template:
     src: prometheus.service.j2
