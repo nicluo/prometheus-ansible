@@ -3,6 +3,15 @@
 #
 # @author Nicholas Luo (2017).
 
+- hosts: prometheus
+  gather_facts: yes
+
+  roles:
+    - prometheus
+    - alertmanager
+    - node_exporter
+    - blackbox_exporter
+
 - hosts: node
   gather_facts: yes
 
