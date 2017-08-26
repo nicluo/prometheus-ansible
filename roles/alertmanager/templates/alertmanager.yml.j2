@@ -46,4 +46,5 @@ inhibit_rules:
   # Apply inhibition if the alertname is the same.
   equal: ['alertname', 'cluster', 'service']
 
+receivers:
 {{ alertmanager_receivers | to_yaml }}
