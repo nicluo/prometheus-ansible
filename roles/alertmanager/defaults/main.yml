@@ -13,4 +13,5 @@ alertmanager_smtp_from: ''
 alertmanager_smtp_auth_username: ''
 alertmanager_smtp_auth_password: ''
 
+alertmanager_route: []
 alertmanager_receivers: []

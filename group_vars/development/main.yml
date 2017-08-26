@@ -12,7 +12,14 @@ alertmanager_smtp_from: 'hello@mg.nicluo.com'
 alertmanager_smtp_auth_username: 'hello@mg.nicluo.com'
 alertmanager_smtp_auth_password: ''
 
+alertmanager_route:
+  group_by: ['alertname', 'cluster', 'service']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 3h
+  receiver: team-mails
+
 alertmanager_receivers:
-  - name: 'team-mails'
+  - name: team-mails
     email_configs:
-    - to: 'info@nicluo.com'
+    - to: info@nicluo.com
