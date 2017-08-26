@@ -46,8 +46,4 @@ inhibit_rules:
   # Apply inhibition if the alertname is the same.
   equal: ['alertname', 'cluster', 'service']
 
-
-receivers:
-- name: 'team-mails'
-  email_configs:
-  - to: 'info@nicluo.com'
+{{ alertmanager_receivers | to_yaml }}

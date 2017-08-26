@@ -12,3 +12,9 @@ alertmanager_smtp_smarthost: 'smtp.mailgun.org:587'
 alertmanager_smtp_from: 'hello@mg.nicluo.com'
 alertmanager_smtp_auth_username: 'hello@mg.nicluo.com'
 alertmanager_smtp_auth_password: ''
+
+alertmanager_receivers:
+  receivers:
+    - name: 'team-mails'
+      email_configs:
+      - to: 'info@nicluo.com'
