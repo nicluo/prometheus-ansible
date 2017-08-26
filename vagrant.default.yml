@@ -2,8 +2,8 @@
 vagrant_prometheus_hostname: 'prometheus.dev'
 vagrant_prometheus_ip: '192.168.181.223'
 
-vagrant_web_hostname: 'prometheus-web.dev'
-vagrant_web_ip: '192.168.181.224'
+vagrant_node_hostname: 'prometheus-node.dev'
+vagrant_node_ip: '192.168.181.224'
 
 vagrant_cpus: 1
 vagrant_memory: 1024
