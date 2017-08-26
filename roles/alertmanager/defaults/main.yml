@@ -7,3 +7,8 @@ prometheus_alertmanager_version: 0.8.0
 prometheus_platform: linux-amd64
 
 prometheus_user : prometheus
+
+alertmanager_smtp_smarthost: 'smtp.mailgun.org:587'
+alertmanager_smtp_from: 'hello@mg.nicluo.com'
+alertmanager_smtp_auth_username: 'hello@mg.nicluo.com'
+alertmanager_smtp_auth_password: ''

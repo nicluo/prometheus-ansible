@@ -1,9 +1,9 @@
 global:
   # The smarthost and SMTP sender used for mail notifications.
-  smtp_smarthost: 'smtp.mailgun.org:587'
-  smtp_from: 'hello@mg.nicluo.com'
-  smtp_auth_username: 'hello@mg.nicluo.com'
-  smtp_auth_password: ''
+  smtp_smarthost: '{{ alertmanager_smtp_smarthost }}'
+  smtp_from: '{{ alertmanager_smtp_from }}'
+  smtp_auth_username: '{{ alertmanager_smtp_auth_username }}'
+  smtp_auth_password: '{{ alertmanager_smtp_auth_password }}'
 
 # The directory from which notification templates are read.
 templates:
