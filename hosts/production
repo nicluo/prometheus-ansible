@@ -1,0 +1,9 @@
+[production]
+128.199.209.128 ansible_user=root
+188.166.247.204 ansible_user=root
+
+[prometheus]
+128.199.209.128
+
+[node]
+188.166.247.204
