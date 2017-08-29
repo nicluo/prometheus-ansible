@@ -1,3 +1,7 @@
+# All hosts should be in [production] group
+# Prometheus server will be installed in [prometheus] group
+# Node Exporter will be installed in [node] group
+
 [production]
 128.199.209.128 ansible_user=root
 188.166.247.204 ansible_user=root
